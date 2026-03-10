@@ -9,7 +9,10 @@ Urban-Pulse/
 │   ├── app/                # 核心應用程式邏輯
 │   │   ├── api/            # 路由層 (Routers)：負責 HTTP 請求收發與參數驗證
 │   │   ├── core/           # 核心層 (Core)：系統全局配置、資料庫初始化與安全認證
-│   │   ├── services/       # 服務層 (Services)：封裝 TDX 串接、數據清洗與 Parquet 轉換
+│   │   │   ├── config.py     - 讀取 .env 並驗證型別 (Settings)
+│   │   │   └── database.py   - 管理 MongoDB 非同步連線 (client, db, check_db_connection)
+│   │   ├── services/       # 服務層 (Services)：封裝 TDX 串接、數據清洗與資料轉換
+│   │   │   └── tdx_service.py  - 處理 Token 獲取與快取 (TdxService)
 │   │   └── models/         # 模型層 (Models)：MongoDB Schema 與 Pydantic 資料結構
 │   ├── data/               # 數據存放 (受 .gitignore 保護)
 │   │   ├── raw/            # 原始 JSON 快照
@@ -17,6 +20,7 @@ Urban-Pulse/
 │   ├── .env.example        # 環境變數範本
 │   ├── run_etl.py          # 數據任務執行進入點
 │   └── requirements.txt    # Python 依賴清單 (pip freeze 產出)
+│
 ├── frontend/               # React 前端 (Vercel)
 ├── CodingStyle.md          # 團隊開發與命名規範
 └── README.md
