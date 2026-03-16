@@ -9,12 +9,27 @@
 from fastapi import FastAPI
 from app.core.database import db
 from app.core.config import settings
+from fastapi.middleware.cors import CORSMiddleware
 
 # 初始化 FastAPI
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION
 )
+
+# --- CORS 設定開始 ---
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,       # 允許的來源
+    allow_credentials=True,
+    allow_methods=["*"],         # 允許所有方法 (GET, POST 等)
+    allow_headers=["*"],         # 允許所有 Header
+)
+# --- CORS 設定結束 ---
 
 @app.get("/")
 async def root():
